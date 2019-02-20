@@ -31,10 +31,10 @@ echo "pass: $pass"
 # configure tower-cli
 
 ```bash
-$ tower-cli config host http://<new-awx-host.example.com>
-$ tower-cli config username <user>
-$ tower-cli config password <pass>
-$ tower-cli send assets.json
+tower-cli config host http://<new-awx-host.example.com>
+tower-cli config username <user>
+tower-cli config password <pass>
+tower-cli send assets.json
 ```
 
 # query asset_type directly
