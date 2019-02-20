@@ -32,7 +32,7 @@ echo "fails: $fails"
 echo "pass: $pass"
 ```
 
-## configure tower-cli
+## Configure tower-cli
 Config can be set via environment variables or command line.
 Via the command line sensitive information is stored to the users home directory.
 
@@ -40,9 +40,9 @@ Via the command line sensitive information is stored to the users home directory
 TOWER_HOST=http://<new-awx-host.example.com>
 TOWER_USERNAME=<user>
 TOWER_PASSWORD=<pass>
-
 ```
 
+OR
 
 ```bash
 tower-cli config host http://<new-awx-host.example.com>
@@ -51,7 +51,7 @@ tower-cli config password <pass>
 tower-cli send assets.json
 ```
 
-## query asset_type directly
+## Query asset_type directly
 
 Filtering for project. 
 
@@ -60,11 +60,11 @@ cat assets.json | jq --arg t "project" '.[] |select(.asset_type==$t)'
 ```
 
 
-## jq slurp
+## jq piping
 
-jq outputs the filtered objects as individual objects and not apart of an array. Tower cli needs an array of objects fed in in a single file, we can pipe the output of jq to another jq process to perfrom the ```--slurp``` argument that outputs the objects into an array. 
+jq outputs the filtered objects as individual objects and not apart of an array. I've piped the output of the jq filter in the export to another jq, what re-creates the objects from the original as elements of a json array.
 
 
-## references 
+## References 
 
 AWX reference on [data migrations](https://github.com/ansible/awx/blob/devel/DATA_MIGRATION.md).
