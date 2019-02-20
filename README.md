@@ -1,4 +1,10 @@
-# tower-cli export
+# awx_config
+
+Repository holds documentation on exporting and importing awx configuration.
+
+Example json files have been exported via the [example](#tower-cli-export)
+
+## tower-cli export
 
 Export configuration from configured tower host and automate filing the recieved assets.json into separate files for each type.
 
@@ -9,14 +15,14 @@ for t in $types; do cat assets.json | jq --arg t "$t" 'select(.[].asset_type==$t
 rm assets.json
 ```
 
-# tower-cli import
+## tower-cli import
 
 Import the configuration, some objects might need to be staged to allow for dependencies.
 
 ```bash
 fails=0
 
-for f in `ls *json`; do echo "Sending $f" && (! tower-cli send $f) && fails=$(($fails + 1)) ; done
+for f in `ls *json`; do echo "Sending $f" && (! tower-cli send $f) && fails=$(($fails + 1)) && echo "$f failed" ; done
 
 count=`ls *json | wc | awk '{print $1}'`
 pass=$(($count - $fails))
@@ -24,11 +30,19 @@ pass=$(($count - $fails))
 echo "count: $count"
 echo "fails: $fails"
 echo "pass: $pass"
+```
 
+## configure tower-cli
+Config can be set via environment variables or command line.
+Via the command line sensitive information is stored to the users home directory.
+
+```bash
+TOWER_HOST=http://<new-awx-host.example.com>
+TOWER_USERNAME=<user>
+TOWER_PASSWORD=<pass>
 
 ```
 
-# configure tower-cli
 
 ```bash
 tower-cli config host http://<new-awx-host.example.com>
@@ -37,7 +51,7 @@ tower-cli config password <pass>
 tower-cli send assets.json
 ```
 
-# query asset_type directly
+## query asset_type directly
 
 Filtering for project. 
 
@@ -46,11 +60,11 @@ cat assets.json | jq --arg t "project" '.[] |select(.asset_type==$t)'
 ```
 
 
-# jq slurp
+## jq slurp
 
 jq outputs the filtered objects as individual objects and not apart of an array. Tower cli needs an array of objects fed in in a single file, we can pipe the output of jq to another jq process to perfrom the ```--slurp``` argument that outputs the objects into an array. 
 
 
-# references 
+## references 
 
 AWX reference on [data migrations](https://github.com/ansible/awx/blob/devel/DATA_MIGRATION.md).
