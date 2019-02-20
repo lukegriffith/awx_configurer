@@ -56,7 +56,7 @@ tower-cli send assets.json
 Filtering for project. 
 
 ```bash
-cat assets.json | jq --arg t "project" '.[] |select(.asset_type==$t)'
+cat assets.json | jq --arg t "project" '.[] | select(.asset_type==$t)'
 ```
 
 
