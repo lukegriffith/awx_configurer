@@ -1,0 +1,13 @@
+
+
+- name: "Loading configuration for {{ item }}"
+  include_task: load_config.yml
+  vars:
+    files:
+      - credential.json
+      - inventory.json
+      - job_template.json
+      - organization.json
+      - project.json
+      - user.json
+

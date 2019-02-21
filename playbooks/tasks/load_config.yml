@@ -1,0 +1,11 @@
+
+
+- name: "copy file {{ item }}"
+  copy: 
+    src: "{{ item }}"
+    dest: "/tmp/{{ item }}"
+  loop: "{{ files }}"
+
+- name: "apply config from {{ item }}"
+  shell: tower-cli 
+# TODO: Continue from here.
